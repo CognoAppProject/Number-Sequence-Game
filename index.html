@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Number Sequence Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Instruction Modal -->
+  <body>
+    <div id="instruction-modal" class="modal" style="display: flex;"> <!-- <- Should be visible initially -->
+    <div class="modal-content">
+      <h2>How to Play</h2>
+      <li>Tap the numbers in correct ascending order (1, 2, 3..)</li>
+      <li>Tap on number and listen the sound carefully!</li>
+      <li>The correct order will turn the number in green</li>
+      <li>The wrong order will turn the number in red</li>
+      <button onclick="startGame()">Start Game</button>
+    </div>
+  </div>
+
+  <h1>Number Sequence Game</h1>
+  <h2 id="level-display">Level: 1</h2>
+  <div class="game-container">
+    <div class="game-board" id="game-board"></div>
+    <button id="next-level-btn" onclick="nextLevel()">Next Level</button>
+  </div>
+
+  <!-- Final Screen -->
+  <div id="final-screen" class="modal">
+    <div class="modal-content">
+      <h2>🎉 Awesome!</h2>
+      <p>You’ve completed all levels!</p>
+      <button onclick="restartGame()">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
