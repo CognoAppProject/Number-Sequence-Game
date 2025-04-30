@@ -22,7 +22,6 @@ function startGame() {
 
 // ✅ Start Timer
 function startTimer() {
-  // ✅ Remove existing timer element if any
   const existingTimer = document.getElementById("timer");
   if (existingTimer) {
     existingTimer.remove();
@@ -31,14 +30,12 @@ function startTimer() {
   const timerElement = document.createElement("h3");
   timerElement.id = "timer";
   document.querySelector(".game-container").insertBefore(timerElement, document.getElementById("game-board"));
-  
-  // ✅ Start new interval
+
   timerInterval = setInterval(() => {
     const elapsed = Math.floor((Date.now() - startTime) / 1000);
     timerElement.innerText = `Time: ${elapsed}s`;
   }, 1000);
 }
-
 
 // ✅ Stop Timer
 function stopTimer() {
@@ -73,14 +70,14 @@ function loadLevel() {
     card.innerText = num;
 
     card.onclick = () => {
-      speakNumber(num); // 🔈 Speak on click
+      speakNumber(num);
       if (parseInt(card.innerText) === current) {
         card.classList.add('correct');
         card.style.pointerEvents = 'none';
         current++;
         if (current > totalCards) {
           if (level === maxLevel) {
-            stopTimer(); // ⏱ Stop timer
+            stopTimer();
             showFinalScreen();
           } else {
             document.getElementById('next-level-btn').style.display = 'inline-block';
@@ -96,7 +93,7 @@ function loadLevel() {
   });
 }
 
-// ✅ Final screen with score and time
+// ✅ Final screen with score and time + Android integration
 function showFinalScreen() {
   document.getElementById('final-screen').style.display = 'flex';
   const finalScreen = document.getElementById('final-screen');
@@ -105,12 +102,18 @@ function showFinalScreen() {
     🕒 Time Taken: <strong>${finalTime} seconds</strong><br>
     🏆 Score: <strong>10</strong>
   `;
+
+  // ✅ Submit result to Android
+  if (window.Android && Android.submitResult) {
+    Android.submitResult("Number Sequence Game", 10, finalTime);
+    console.log("Result submitted to Android: 10, " + finalTime + "s");
+  }
 }
 
 function restartGame() {
   level = 1;
   document.getElementById('final-screen').style.display = 'none';
-  clearInterval(timerInterval); // ✅ stop any previous timer
+  clearInterval(timerInterval);
   startTime = Date.now();
   startTimer();
   loadLevel();
